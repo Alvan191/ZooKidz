@@ -1,5 +1,6 @@
 package com.example.zookidzz
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmarks
@@ -31,15 +32,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.zookidzz.login.LoginScreen
+import com.example.zookidzz.login.RegistrasiScreen
 import com.example.zookidzz.navigation.NavigationItem
 import com.example.zookidzz.navigation.Screen
 import com.example.zookidzz.presentation.AboutScreen
 import com.example.zookidzz.presentation.BookmarkScreen
 import com.example.zookidzz.presentation.HomeScreen
 import com.example.zookidzz.presentation.NotesScreen
+import com.example.zookidzz.presentation.component.AddNotesScreen
 import com.example.zookidzz.presentation.detail.DetailKakiDua
 import com.example.zookidzz.presentation.detail.DetailKakiEmpat
 import com.example.zookidzz.presentation.detail.DetailKakiEnam
+import com.example.zookidzz.presentation.detail.DetailNotesScreen
+import com.example.zookidzz.utils.shouldShowBottomBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,27 +54,34 @@ fun ZooApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
+    val navBackStack by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStack?.destination?.route
     val context = LocalContext.current
 
     Scaffold(
         bottomBar = {
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentRoute = navBackStackEntry?.destination?.route
-            if (currentRoute != null &&
-                !currentRoute.startsWith(Screen.DetailKakiDuasc.route) &&
-                currentRoute != Screen.DetailKakiEmpatsc.route &&
-                currentRoute != Screen.DetailKakiEnamsc.route
+            AnimatedVisibility(
+                visible = currentRoute.shouldShowBottomBar()
             ) {
-                BottomBar(navController, modifier)
+                BottomBar(navController)
             }
         },
         modifier = modifier
     ) { contentPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Login.route,
             modifier = modifier.padding(contentPadding)
         ) {
+            composable(Screen.Login.route) {
+                LoginScreen(navController)
+            }
+            composable(Screen.Register.route) {
+                RegistrasiScreen(navController)
+            }
+            composable(Screen.ZooScreen.route){
+                ZooApp(modifier = Modifier)
+            }
             composable(Screen.Home.route) {
                 HomeScreen(modifier, navController)
             }
@@ -109,10 +122,28 @@ fun ZooApp(
                     itemId = navBackStackEntry.arguments?.getInt("itemId")
                 )
             }
+            composable(Screen.AddNotesc.route){
+                AddNotesScreen(navController)
+            }
+
+            composable(
+                route = Screen.DetailNotess.route,
+                arguments = listOf(
+                    navArgument("title") { type = NavType.StringType }
+                )
+            ) {
+                val titleFile = it.arguments?.getString("title") ?: ""
+                val descFile = it.arguments?.getString("desc") ?: ""
+
+                DetailNotesScreen(
+                    titleFile = titleFile,
+                    descFile = descFile,
+                    navController = navController
+                )
+            }
         }
     }
 }
-
 
 
 @Composable
@@ -181,7 +212,7 @@ private fun BottomBar(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun ZooAppPreview() {
     ZooApp()

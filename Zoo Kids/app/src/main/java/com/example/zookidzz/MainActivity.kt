@@ -3,6 +3,9 @@ package com.example.zookidzz
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,25 +21,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ZooKidzzTheme {
-                val navController = rememberNavController()
-                NavHost(
-                    navController = navController,
-                    startDestination = Screen.Login.route,
-                    builder = {
-                        composable(Screen.Login.route) {
-                            LoginScreen(navController)
-                        }
-                        composable(Screen.Register.route) {
-                            RegistrasiScreen(navController)
-                        }
-                        composable(Screen.ZooScreen.route){
-                            ZooApp(modifier = Modifier)
-                        }
-                        composable(Screen.Home.route){
-                            HomeScreen(modifier = Modifier, navController)
-                        }
-                    }
-                )
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    ZooApp()
+                }
             }
         }
     }

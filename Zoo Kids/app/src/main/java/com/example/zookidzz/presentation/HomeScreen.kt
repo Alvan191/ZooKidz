@@ -21,9 +21,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -31,6 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,14 +54,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.datastore.dataStore
 import androidx.navigation.NavController
 import com.example.zookidzz.R
 import com.example.zookidzz.data.BerkakiDua
 import com.example.zookidzz.data.BerkakiEmpat
 import com.example.zookidzz.data.BerkakiEnam
 import com.example.zookidzz.data.DataSaya
+import com.example.zookidzz.data.DataStore
 import com.example.zookidzz.data.SharedPreferencesManager
 import com.example.zookidzz.navigation.Screen
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,9 +77,9 @@ fun HomeScreen(
 ) {
     // Menerapkan SharedPreferences
     val context = LocalContext.current
-    val sharedPreferencesManager = remember {
-        SharedPreferencesManager(context)
-    }
+    val coroutineScope = rememberCoroutineScope()
+    val sharedPreferencesManager = remember { SharedPreferencesManager(context) }
+    val dataStore = DataStore(context)
     val email = sharedPreferencesManager.email ?: ""
 
     //fungsi list kategori row
@@ -81,7 +89,8 @@ fun HomeScreen(
     val categories = listOf("Semua", "Berkaki Dua", "Berkaki Empat", "Berkaki Enam", "Terbang", "Tidak Terbang")
 
     Column(
-        modifier.fillMaxSize()
+        modifier
+            .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 10.dp)
     ) {
         Text(
@@ -94,21 +103,47 @@ fun HomeScreen(
             )
         )
         Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = buildAnnotatedString {
-                append("Hi, ")
-                val emailPrefix = email.split("@")[0]
-                withStyle(style = SpanStyle(MaterialTheme.colorScheme.primary)) {
-                    append(emailPrefix + "😍")
-                }
-            },
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.roboto_medium)),
-                fontWeight = FontWeight(500),
-                color = Color(0xFF000000),
+        Row (
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+                .wrapContentHeight()
+        ){
+            Text(
+                text = buildAnnotatedString {
+                    append("Hi, ")
+                    val emailPrefix = email.split("@")[0]
+                    withStyle(style = SpanStyle(MaterialTheme.colorScheme.primary)) {
+                        append(emailPrefix + "😍")
+                    }
+                },
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto_medium)),
+                    fontWeight = FontWeight(500),
+                    color = Color(0xFF000000),
+                )
             )
-        )
+            IconButton(
+                onClick = {
+                    sharedPreferencesManager.clear()
+                    coroutineScope.launch {
+                        dataStore.clearStatus()
+                    }
+                    navController.navigate(Screen.Login.route){
+                        popUpTo(Screen.Home.route) {
+                            inclusive = true
+                        }
+                    }
+                },
+                modifier.size(20.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Logout,
+                    contentDescription = "Logout"
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(22.dp))
         Box(
             modifier = Modifier

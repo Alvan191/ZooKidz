@@ -11,4 +11,8 @@ sealed class Screen (val route: String){
     data object DetailKakiDuasc: Screen("detail_kaki_dua")
     data object DetailKakiEmpatsc: Screen("detail_kaki_empat")
     data object DetailKakiEnamsc: Screen("detail_kaki_enam")
+    data object AddNotesc: Screen("Catatan")
+    data object DetailNotess: Screen("detail_task/{title}/{desc}") {
+        fun createRoute(title: String, desc: String) = "detail_task/$title/$desc"
+    }
 }
