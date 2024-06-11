@@ -73,7 +73,7 @@ fun ZooApp(
                 HomeScreen(modifier, navController)
             }
             composable(Screen.Notes.route) {
-                NotesScreen()
+                NotesScreen(modifier, navController)
             }
             composable(Screen.Bookmark.route) {
                 BookmarkScreen()
