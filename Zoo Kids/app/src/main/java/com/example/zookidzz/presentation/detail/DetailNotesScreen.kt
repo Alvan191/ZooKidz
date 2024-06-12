@@ -20,7 +20,7 @@ fun DetailNotesScreen(
     val descData = readData.data ?: ""
 
     Contentnotes(
-        header = "Detail Task",
+        header = titleData,
         title = titleData,
         desc = descData,
         readOnly = true,

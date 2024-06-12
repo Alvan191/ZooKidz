@@ -92,7 +92,7 @@ fun ZooApp(
                 BookmarkScreen()
             }
             composable(Screen.About.route) {
-                AboutScreen()
+                AboutScreen(modifier)
             }
 
             composable(
