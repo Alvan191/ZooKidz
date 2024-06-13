@@ -41,29 +41,30 @@ fun DetailKakiDua(
     modifier: Modifier = Modifier,
     navController: NavController,
     itemId: Int?
-) { Column {
-    TopAppBar(
-        modifier = Modifier,
-        navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    Icons.Default.ArrowBackIosNew,
-                    contentDescription = "Back"
-                )
+) {
+    Column {
+        TopAppBar(
+            modifier = Modifier,
+            navigationIcon = {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        Icons.Default.ArrowBackIosNew,
+                        contentDescription = "Back"
+                    )
+                }
+            }, title = {
+                Text(text = "Detail Column Screen")
             }
-        }, title = {
-            Text(text = "Detail Column Screen")
+        )
+        val newKaki2List = DataSaya.datKaki2.filter { item ->
+            item.id == itemId
         }
-    )
-    val newKaki2List = DataSaya.datKaki2.filter { item ->
-        item.id == itemId
+        Column(
+            modifier = modifier
+        ) {
+            DetailHewan(newKaki2List, modifier)
+        }
     }
-    Column(
-        modifier = modifier
-    ) {
-        DetailHewan(newKaki2List, modifier)
-    }
-}
 }
 
 

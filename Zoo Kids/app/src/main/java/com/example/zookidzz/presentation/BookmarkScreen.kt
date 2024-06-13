@@ -1,5 +1,6 @@
 package com.example.zookidzz.presentation
 
+import android.os.Parcelable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -27,10 +29,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.zookidzz.data.BerkakiDua
+import com.example.zookidzz.data.BerkakiEmpat
+import com.example.zookidzz.data.BerkakiEnam
+import com.example.zookidzz.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookmarkScreen() {
+fun BookmarkScreen(
+    navController: NavController
+) {
     Column (
         modifier = Modifier
             .padding(15.dp)
@@ -60,10 +69,9 @@ fun BookmarkScreen() {
         )
         Spacer(modifier = Modifier.width(8.dp))
 
-        LazyColumn(
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
+        val bookmarkedAnimals = navController.previousBackStackEntry?.arguments?.getParcelableArrayList<Parcelable>("bookmarkedAnimals") ?: emptyList<Parcelable>()
+
+        LazyColumn(contentPadding = PaddingValues(vertical = 10.dp)) {
 
         }
     }

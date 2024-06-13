@@ -22,6 +22,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -106,7 +108,8 @@ fun HomeScreen(
         Row (
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .wrapContentHeight()
         ){
             Text(
@@ -225,6 +228,8 @@ fun CategoryRow(
 
 @Composable
 fun BerkakiDuaItem(berkakiDua: BerkakiDua, modifier: Modifier, onClick: () -> Unit) {
+    var isBookmarked by remember { mutableStateOf(false) }
+
     Card(
         modifier = modifier
             .padding(vertical = 8.dp)
@@ -257,9 +262,19 @@ fun BerkakiDuaItem(berkakiDua: BerkakiDua, modifier: Modifier, onClick: () -> Un
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .weight(1f)
                         .align(Alignment.CenterVertically)
                 )
+
+                IconButton(
+                    onClick = { isBookmarked = !isBookmarked },
+                ) {
+                    Icon(
+                        imageVector = if (isBookmarked) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
+                        contentDescription = "Bookmark",
+                        tint = if (isBookmarked) Color(0xFF3D4E79) else Color.Gray
+                    )
+                }
             }
         }
     }
@@ -267,6 +282,8 @@ fun BerkakiDuaItem(berkakiDua: BerkakiDua, modifier: Modifier, onClick: () -> Un
 
 @Composable
 fun BerkakiEmpatItem(berkakiEmpat: BerkakiEmpat, modifier: Modifier, onClick: () -> Unit) {
+    var isBookmarked by remember { mutableStateOf(false) }
+
     Card(
         modifier = modifier
             .padding(vertical = 8.dp)
@@ -299,9 +316,19 @@ fun BerkakiEmpatItem(berkakiEmpat: BerkakiEmpat, modifier: Modifier, onClick: ()
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .weight(1f)
                         .align(Alignment.CenterVertically)
                 )
+
+                IconButton(
+                    onClick = { isBookmarked = !isBookmarked },
+                ) {
+                    Icon(
+                        imageVector = if (isBookmarked) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
+                        contentDescription = "Bookmark",
+                        tint = if (isBookmarked) Color(0xFF3D4E79) else Color.Gray
+                    )
+                }
             }
         }
     }
@@ -309,6 +336,8 @@ fun BerkakiEmpatItem(berkakiEmpat: BerkakiEmpat, modifier: Modifier, onClick: ()
 
 @Composable
 fun BerkakiEnamItem(berkakiEnam: BerkakiEnam, modifier: Modifier, onClick: () -> Unit) {
+    var isBookmarked by remember { mutableStateOf(false) }
+
     Card(
         modifier = modifier
             .padding(vertical = 8.dp)
@@ -341,9 +370,19 @@ fun BerkakiEnamItem(berkakiEnam: BerkakiEnam, modifier: Modifier, onClick: () ->
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .weight(1f)
                         .align(Alignment.CenterVertically)
                 )
+
+                IconButton(
+                    onClick = { isBookmarked = !isBookmarked },
+                ) {
+                    Icon(
+                        imageVector = if (isBookmarked) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
+                        contentDescription = "Bookmark",
+                        tint = if (isBookmarked) Color(0xFF3D4E79) else Color.Gray
+                    )
+                }
             }
         }
     }
