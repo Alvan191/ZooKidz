@@ -1,5 +1,10 @@
 package com.example.zookidzz.presentation
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -90,6 +95,14 @@ fun HomeScreen(
     var showNonFlyingAnimals by remember { mutableStateOf(false) }
     val categories = listOf("Semua", "Berkaki Dua", "Berkaki Empat", "Berkaki Enam", "Terbang", "Tidak Terbang")
 
+    val infiniteTransition = rememberInfiniteTransition(label = "infinite transition")
+    val animatedColor by infiniteTransition.animateColor(
+        initialValue = Color(0xFF60DDAD),
+        targetValue = Color(0xFF4285F4),
+        animationSpec = infiniteRepeatable(tween(1000), RepeatMode.Reverse),
+        label = "color"
+    )
+
     Column(
         modifier
             .fillMaxSize()
@@ -97,11 +110,11 @@ fun HomeScreen(
     ) {
         Text(
             text = "ZooKidz",
+            color = animatedColor,
             style = TextStyle(
                 fontSize = 20.sp,
                 fontFamily = FontFamily(Font(R.font.roboto_bold)),
                 fontWeight = FontWeight(500),
-                color = Color(0xFF000000),
             )
         )
         Spacer(modifier = Modifier.height(20.dp))

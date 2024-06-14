@@ -1,9 +1,12 @@
 package com.example.zookidzz.login
 
 import android.widget.Toast
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,6 +38,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -70,6 +74,19 @@ fun LoginScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var katasandiVisible by remember { mutableStateOf(false) }
+
+    val mutableInteractionSource = remember {
+        MutableInteractionSource()
+    }
+    val pressed = mutableInteractionSource.collectIsPressedAsState()
+    val elevation = animateDpAsState(
+        targetValue = if (pressed.value) {
+            150.dp
+        } else {
+            150.dp
+        },
+        label = "elevation"
+    )
 
     if (statusLoggedIn.value) {
         navController.navigate(Screen.Home.route) {
@@ -205,6 +222,8 @@ fun LoginScreen(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .graphicsLayer {
+                        this.shadowElevation = elevation.value.toPx() }
                     .height(55.dp)
                     .background(color = Color(0xFF3D4E79), shape = RoundedCornerShape(size = 5.dp))
                     .padding(start = 15.dp, top = 10.dp, end = 15.dp, bottom = 10.dp),
