@@ -37,6 +37,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.zookidzz.login.LoginScreen
+import com.example.zookidzz.login.Onboarding
 import com.example.zookidzz.login.RegistrasiScreen
 import com.example.zookidzz.navigation.NavigationItem
 import com.example.zookidzz.navigation.Screen
@@ -74,9 +75,12 @@ fun ZooApp(
     ) { contentPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Login.route,
+            startDestination = Screen.Onboarding.route,
             modifier = modifier.padding(contentPadding)
         ) {
+            composable(Screen.Onboarding.route) {
+                Onboarding(navController)
+            }
             composable(Screen.Login.route) {
                 LoginScreen(navController)
             }

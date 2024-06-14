@@ -79,6 +79,5 @@ dependencies {
     //dataStore
     implementation(libs.datastore.preferences)
 
-
-    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.core.splashscreen.v100)
 }
