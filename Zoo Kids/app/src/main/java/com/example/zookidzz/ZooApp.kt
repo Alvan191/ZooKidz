@@ -39,6 +39,7 @@ import androidx.navigation.navArgument
 import com.example.zookidzz.login.LoginScreen
 import com.example.zookidzz.login.Onboarding
 import com.example.zookidzz.login.RegistrasiScreen
+import com.example.zookidzz.map.MapsScreen
 import com.example.zookidzz.navigation.NavigationItem
 import com.example.zookidzz.navigation.Screen
 import com.example.zookidzz.presentation.AboutScreen
@@ -148,6 +149,10 @@ fun ZooApp(
                     descFile = descFile,
                     navController = navController
                 )
+            }
+
+            composable(Screen.Map.route) {
+                MapsScreen(navController, modifier)
             }
         }
     }

@@ -79,5 +79,9 @@ dependencies {
     //dataStore
     implementation(libs.datastore.preferences)
 
+    //splash
     implementation(libs.androidx.core.splashscreen.v100)
+
+    //Googlemaps
+    implementation(libs.maps.compose)
 }

@@ -29,6 +29,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -108,15 +109,33 @@ fun HomeScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 10.dp)
     ) {
-        Text(
-            text = "ZooKidz",
-            color = animatedColor,
-            style = TextStyle(
-                fontSize = 20.sp,
-                fontFamily = FontFamily(Font(R.font.roboto_bold)),
-                fontWeight = FontWeight(500),
+        Row (
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+        ){
+            Text(
+                text = "ZooKidz ",
+                color = animatedColor,
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto_bold)),
+                    fontWeight = FontWeight(500),
+                ),
+                modifier = Modifier.clickable { navController.navigate(Screen.Map.route) }
             )
-        )
+            IconButton(
+                onClick = { navController.navigate(Screen.Map.route) },
+                modifier = Modifier.size(20.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.LocationOn,
+                    contentDescription = "Logout"
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(20.dp))
         Row (
             horizontalArrangement = Arrangement.SpaceBetween,
