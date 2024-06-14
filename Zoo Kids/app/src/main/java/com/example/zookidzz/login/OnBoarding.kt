@@ -40,9 +40,8 @@ fun Onboarding(navController: NavController) {
         val targetValue = 100.dp
         textSizeAnimatable.animateTo(
             targetValue.value,
-            animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing)
+            animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing)
         )
-        delay(500)
         animationCompleted = true
     }
 
