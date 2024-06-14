@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocationSearching
 import androidx.compose.material.icons.filled.NoteAlt
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -101,7 +102,10 @@ fun ZooApp(
                 BookmarkScreen(navController)
             }
             composable(Screen.About.route) {
-                AboutScreen(modifier)
+                AboutScreen(modifier, navController)
+            }
+            composable(Screen.Mapss.route) {
+                MapsScreen(navController, modifier)
             }
 
             composable(
@@ -149,10 +153,6 @@ fun ZooApp(
                     descFile = descFile,
                     navController = navController
                 )
-            }
-
-            composable(Screen.Map.route) {
-                MapsScreen(navController, modifier)
             }
         }
     }

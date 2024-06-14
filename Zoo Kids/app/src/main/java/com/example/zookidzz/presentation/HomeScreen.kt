@@ -123,18 +123,8 @@ fun HomeScreen(
                     fontSize = 20.sp,
                     fontFamily = FontFamily(Font(R.font.roboto_bold)),
                     fontWeight = FontWeight(500),
-                ),
-                modifier = Modifier.clickable { navController.navigate(Screen.Map.route) }
-            )
-            IconButton(
-                onClick = { navController.navigate(Screen.Map.route) },
-                modifier = Modifier.size(20.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.LocationOn,
-                    contentDescription = "Logout"
                 )
-            }
+            )
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row (

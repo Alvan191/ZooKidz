@@ -20,10 +20,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.LocationSearching
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,10 +52,12 @@ import com.example.zookidzz.data.aboutZooKidz
 import com.example.zookidzz.data.rowZoo
 import com.example.zookidzz.data.rowZoosec
 import com.example.zookidzz.data.teamZoo
+import com.example.zookidzz.navigation.Screen
 
 @Composable
 fun AboutScreen(
     modifier: Modifier,
+    navController: NavController,
     aboutZookidz: List<aboutZooKidz> = DataAbout.dataPengenalan,
     aboutRowzoo: List<rowZoo> = DataAbout.dataRowZooFirst,
     aboutRowzoosec: List<rowZoosec> = DataAbout.dataRowZooSecond,
@@ -61,27 +66,43 @@ fun AboutScreen(
     Column (
         modifier = Modifier.fillMaxSize()
     ){
-        Row (
-            horizontalArrangement = Arrangement.Start,
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(start = 20.dp, top = 20.dp)
-        ){
-            Icon(
-                imageVector = Icons.Default.Info,
-                contentDescription = "About",
+                .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .size(22.dp)
-            )
-            Spacer(modifier = Modifier.width(6.dp))
-            Text(
-                text = "About",
-                fontSize = 18.sp,
-                fontFamily = FontFamily(Font(R.font.roboto_black)),
-                fontWeight = FontWeight(800),
-            )
+                    .wrapContentHeight()
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = "About",
+                    modifier = Modifier
+                        .size(22.dp)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "About",
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto_black)),
+                    fontWeight = FontWeight(800),
+                )
+            }
+            IconButton(
+                onClick = { navController.navigate(Screen.Mapss.route) },
+                modifier = Modifier.size(20.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.LocationSearching,
+                    contentDescription = "Location"
+                )
+            }
         }
         LazyColumn(
             modifier = Modifier
