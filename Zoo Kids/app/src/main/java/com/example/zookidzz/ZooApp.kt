@@ -1,6 +1,11 @@
 package com.example.zookidzz
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmarks
@@ -15,11 +20,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -178,6 +185,17 @@ private fun BottomBar(
             )
         )
         navigationItems.map { item ->
+            AnimatedVisibility(
+                visible = currentRoute == item.screen.route,
+                enter = slideInVertically(initialOffsetY ={ it },
+                    animationSpec = tween(500, easing = LinearOutSlowInEasing)
+                ),
+                exit = slideOutVertically(targetOffsetY = { -it },
+                    animationSpec = tween(500, easing = LinearOutSlowInEasing)
+                )
+            ) {
+
+            }
             NavigationBarItem(
                 selected = currentRoute == item.screen.route,
                 onClick = {
